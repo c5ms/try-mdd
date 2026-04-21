@@ -31,6 +31,11 @@
 | 21 | 信用问题客户标记机制（替代暂停合作状态） | customer | 财务主管评审 | 待确认 |
 | 22 | 客户状态变更日志机制 | customer | 系统架构师评审 | 待确认 |
 | 23 | 客户重新启用审批流程 | customer | 财务主管评审 | 待确认 |
+| 24 | 物料需求拆分审批流程 | material-requirement | 业务经理评审 | 待确认 |
+| 25 | 物料需求计算触发时机 | material-requirement | 生产跟单员评审 | 待确认 |
+| 26 | 无效物料需求的财务处理 | material-requirement | 财务主管评审 | 待确认 |
+| 27 | 物料需求成本字段设计 | material-requirement | 财务主管评审 | 待确认 |
+| 28 | BOM变更触发物料需求无效的具体条件 | material-requirement | 生产跟单员评审 | 待确认 |
 
 ---
 

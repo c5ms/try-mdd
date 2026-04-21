@@ -71,8 +71,8 @@ config/
   rules.md                # 设计原则（DDD 建模规约）
   roles.md                # 角色定义（参与设计的角色）
 
-solution/
-  {domain}.md             # 待确认方案（角色评审后）
+draft/
+  {domain}.md             # 待确认草稿（角色评审后）
 
 design/
   todo.md                 # 设计待定问题追踪（待确认、已解决）
@@ -108,8 +108,8 @@ reflect/
 | Skill | 用途 | 文档 |
 |-------|------|------|
 | `mdd-init` | 确认项目 → 设计角色 → 确定准则 → 初始化目录 | `.agents/skills/mdd-init/SKILL.md` |
-| `mdd-design` | 读取规约 → 角色评审 → 输出方案 → 更新设计 | `.agents/skills/mdd-design/SKILL.md` |
-| `mdd-apply` | 搜索方案 → 用户确认 → 执行更新 → 更新汇总 → 清理方案 | `.agents/skills/mdd-apply/SKILL.md` |
+| `mdd-design` | 调研 → 设计 → 输出草稿（自由形式，覆盖模板内容+用户自定义） | `.agents/skills/mdd-design/SKILL.md` |
+| `mdd-apply` | 分析草稿箱 → 整理内容 → 澄清 → 领域划分 → 标准化输出 → 更新模型 | `.agents/skills/mdd-apply/SKILL.md` |
 | `mdd-evolve` | 用户迷茫 → 给出方向 → 用户选择 → 深入讨论 → 理清思路（仅对话） | `.agents/skills/mdd-evolve/SKILL.md` |
 | `mdd-reflect` | 推演错误 → 根因分析 → 改进建议 | `.agents/skills/mdd-reflect/SKILL.md` |
 
