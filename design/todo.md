@@ -36,6 +36,9 @@
 | 26 | 无效物料需求的财务处理 | material-requirement | 财务主管评审 | 待确认 |
 | 27 | 物料需求成本字段设计 | material-requirement | 财务主管评审 | 待确认 |
 | 28 | BOM变更触发物料需求无效的具体条件 | material-requirement | 生产跟单员评审 | 待确认 |
+| 29 | 备料指令编号生成规则 | stock-preparation | 系统架构师评审 | 待确认 |
+| 30 | 多币种采购的汇率处理 | stock-preparation | 财务主管评审 | 待确认 |
+| 31 | 与物料需求统一为采购需求模型的具体实现方案 | stock-preparation | 系统架构师评审 | 待确认 |
 
 ---
 
