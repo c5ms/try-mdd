@@ -172,10 +172,14 @@ solution/
   {domain}.md             # 待确认方案（角色评审后）
 
 design/
-  domain/
-    {domain}/
-      model.md            # 领域模型（实体、聚合、状态机、规则）
+  todo.md                 # 设计待定问题追踪（待确认、已解决）
   model.md                # 领域模型汇总（统一术语表、领域关系图）
+  domain/
+    {domain}.md           # 领域模型（术语表、实体、聚合）
+    {domain}-state.md     # 状态机补充（大模型判断拆分）
+    {domain}-rule.md      # 业务规则补充（大模型判断拆分）
+    {domain}-flow.md      # 数据流图补充（大模型判断拆分）
+    {domain}-scene.md     # 业务场景补充（大模型判断拆分）
 
 reflect/
   YYYY-MM-DD-{主题}.md    # 反思记录
