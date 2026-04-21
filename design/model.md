@@ -36,13 +36,25 @@ graph TB
         MATERIAL --> MATSUP
     end
 
+    subgraph "物料需求域"
+        PRODREQ[物料需求]
+    end
+
+    subgraph "采购域"
+        PURCHASE[采购单]
+        PURREC[采购入库]
+        POLINE[采购单明细]
+        PURCHASE --> POLINE
+    end
+
     BASE --> ORDER
     BASE --> PRODUCT
     BASE --> MATERIAL
-    ORDER --> PROD
+    ORDER --> PRODUCT
     ORDER --> FINANCE
     BOM --> MATERIAL
     PRODREQ --> MATERIAL
+    POLINE --> PRODREQ
     PURCHASE --> MATERIAL
     PURREC --> STOCK
     MATERIAL --> STOCK
@@ -64,6 +76,7 @@ graph TB
 | **BOMLine** | 产品域 | BOM中的具体物料条目 | - |
 | **Material** | 物料域 | 管理物料基本信息、分类、单位 | ACTIVE → INACTIVE |
 | **MaterialSupplier** | 物料域 | 物料与供应商的关联关系 | - |
+| **MaterialRequirement** | 物料需求域 | 订单SKU与BOM计算得出的采购驱动数据 | ACTIVE → INVALID |
 
 ---
 
@@ -80,3 +93,4 @@ graph TB
 | 2025-04-21 | 反思改进：删除过度DDD抽象，改为用户价值导向 | 全局 |
 | 2025-04-21 | material、customer、order 按新规范优化 | material, customer, order |
 | 2025-04-21 | 精简 design/model.md，删除多余章节 | 全局 |
+| 2026-04-21 | 完成物料需求领域设计 | material-requirement |
