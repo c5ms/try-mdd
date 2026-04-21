@@ -1,23 +1,55 @@
 # 客户领域 - 客户模型
 
-> 最后更新：2026-04-21
+> 最后更新：2025-04-21
 
 ---
 
-## 一、术语表
+## 1 术语表
 
-| 术语 | 英文名 | 定义 | 关联术语 |
-|------|--------|------|----------|
-| 客户 | Customer | 国外客户，购买服装大货订单的贸易对象 | 订单、联系人、银行账户 |
-| 联系人 | Contact | 客户公司的业务对接人 | 客户 |
-| 银行账户 | BankAccount | 客户收款银行账户信息 | 客户、币种 |
-| 验货要求 | InspectionRequirement | 客户对产品质量的检验要求 | 客户、订单 |
-| 验厂要求 | FactoryAuditRequirement | 客户对工厂的社会责任审核要求 | 客户 |
-| 信用额度 | CreditLimit | 客户可用的信用额度上限 | 客户、订单 |
+> 仅在用户澄清概念时记录
+
+| 术语 | 定义 | 澄清来源 |
+|------|------|----------|
+| {概念} | {定义} | {用户原话} |
 
 ---
 
-## 二、实体定义
+## 2 实体定义
+
+### 实体关系图
+
+```mermaid
+erDiagram
+  Customer {
+    string id PK
+    string code
+    string fullName
+    string shortName
+    string country
+    enum status
+    enum customerLevel
+  }
+  
+  Contact {
+    string id PK
+    string customerId FK
+    string name
+    string email
+    boolean isPrimary
+  }
+  
+  BankAccount {
+    string id PK
+    string customerId FK
+    string bankName
+    string accountNo
+    string currency
+    boolean isDefault
+  }
+  
+  Customer ||--o{ Contact : has
+  Customer ||--o{ BankAccount : has
+```
 
 ### 客户（聚合根）
 
@@ -31,8 +63,8 @@
 | country | string | ✓ | 国家 |
 | phone | string | | 电话 |
 | companyType | string | | 公司类型（品牌公司/贸易公司/零售商） |
-| address | Address | | 地址（值对象） |
-| addressEn | Address | | 英文地址（值对象） |
+| address | object | | 地址（结构化属性：street、city、state、postcode、country） |
+| addressEn | object | | 英文地址（结构化属性） |
 | developChannel | string | | 开发渠道 |
 | customerLevel | enum | | 客户等级（VIP/普通/潜在） |
 | paymentTerms | string | | 价格条款（FOB/CIF/DDP等） |
@@ -40,10 +72,10 @@
 | selfOwnedBrand | boolean | | 是否自营品牌 |
 | brandList | string[] | | 自营品牌列表 |
 | remark | string | | 备注 |
-| status | enum | ✓ | 客户状态 |
+| status | enum | ✓ | 客户状态（ACTIVE/INACTIVE） |
 | createdAt | datetime | ✓ | 创建时间 |
 
-### 联系人
+### 联系人（内部实体）
 
 | 属性 | 类型 | 必填 | 说明 |
 |------|------|------|------|
@@ -54,7 +86,7 @@
 | email | string | ✓ | 联系人邮箱 |
 | isPrimary | boolean | | 是否主联系人 |
 
-### 银行账户
+### 银行账户（内部实体）
 
 | 属性 | 类型 | 必填 | 说明 |
 |------|------|------|------|
@@ -63,96 +95,94 @@
 | bankName | string | ✓ | 收款银行 |
 | accountNo | string | ✓ | 账号 |
 | swiftCode | string | | Swift Code |
-| bankAddress | Address | | 银行地址（值对象） |
+| bankAddress | object | | 银行地址（结构化属性） |
 | currency | string | | 结算币种 |
 | isDefault | boolean | | 是否默认账户 |
 
 ---
 
-## 三、值对象
-
-### 地址（Address）
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| street | string | 街道地址 |
-| city | string | 城市 |
-| state | string | 省/州 |
-| postcode | string | 邵编 |
-| country | string | 国家 |
-
-### 验货要求（InspectionRequirement）
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| requirementType | string | 要求类型 |
-| description | string | 具体要求描述 |
-
-### 验厂要求（FactoryAuditRequirement）
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| auditType | string | 审核类型 |
-| description | string | 具体要求描述 |
-
-### 保险信息（InsuranceInfo）
-
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| isInsured | boolean | 是否投保 |
-| buyerCode | string | 买方代码 |
-| insuredRatio | decimal | 投保比例 |
-| effectiveLimit | decimal | 生效额度 |
-
----
-
-## 四、聚合边界
+## 3 聚合边界
 
 **聚合：客户聚合**
 
 - 聚合根：客户
 - 内部实体：联系人（可多个）、银行账户（可多个）
-- 值对象：地址、验货要求、验厂要求、保险信息
-
-**聚合间引用**：
-
-| 聚合A | 聚合B | 引用方式 |
-|-------|-------|----------|
-| 订单聚合 | 客户聚合 | customerId |
-| 客户聚合 | 基础数据聚合 | currencyId, countryId |
 
 ---
 
-## 五、业务规则
+## 4 上下游关系图
 
-| 规则ID | 规则描述 | 来源 | 适用场景 |
-|--------|----------|------|----------|
-| R01 | 客户编码系统自动生成 | 用户确认 | 创建客户 |
-| R02 | 客户必须有至少一个主联系人 | 业务规则 | 创建客户 |
-| R03 | 客户必须有至少一个银行账户 | 财务规则 | 首次下单前 |
-| R04 | 客户状态为暂停合作时不能下新订单 | 业务规则 | 创建订单 |
-| R05 | 客户注销前必须无未完成订单 | 业务规则 | 注销客户 |
+```mermaid
+graph LR
+  基础数据 -->|currencyId| 客户
+  基础数据 -->|countryId| 客户
+  订单 -->|customerId| 客户
+  
+  style 客户 fill:#e1f5fe
+```
 
----
+**关系说明：**
 
-## 六、数据流图
-
-> 待补充
-
----
-
-## 七、业务场景
-
-> 待补充
+- **上游：**基础数据 → 客户（客户币种、国家）
+- **下游：**订单 → 客户（订单关联客户）
 
 ---
 
-## 八、补充文件
+## 5 状态图
 
-> 大模型判断：状态机已定义且涉及信用问题等复杂流转，拆分独立文件
+```mermaid
+stateDiagram-v2
+  [*] --> ACTIVE: 创建客户
+  ACTIVE --> INACTIVE: 停用
+  INACTIVE --> ACTIVE: 启用
+  
+  note right of ACTIVE: 可正常合作、下单
+  note right of INACTIVE: 停止合作，不可下新订单
+```
 
-| 文件 | 内容 | 状态 |
-|------|------|------|
-| customer-state.md | 状态机 | 已拆分 |
-| customer-flow.md | 数据流图 | 合并在主文件（待补充） |
-| customer-scene.md | 业务场景 | 合并在主文件（待补充） |
+**状态简化说明：**
+
+原4个状态（潜在客户、活跃客户、暂停合作、注销）简化为2个状态（启用、停用），用客户等级字段区分客户类型。
+
+---
+
+## 6 业务规则
+
+| 规则ID | 规则描述 | 适用场景 |
+|--------|----------|----------|
+| R01 | 客户编码系统自动生成 | 创建客户 |
+| R02 | 客户必须有至少一个主联系人 | 创建客户 |
+| R03 | 客户必须有至少一个银行账户 | 首次下单前 |
+| R04 | 客户状态为停用时不能下新订单 | 创建订单 |
+| R05 | 客户停用前必须无未完成订单 | 停用客户 |
+
+---
+
+## 7 补充流程图
+
+> 仅在复杂领域设计
+
+（暂无）
+
+---
+
+## 8 用例
+
+| 用例 | 角色 | 操作 | 目标 |
+|------|------|------|------|
+| 创建客户 | 业务经理 | 创建新客户信息 | 为订单准备客户基础数据 |
+| 修改客户 | 业务经理 | 更新客户联系方式、地址等信息 | 维护客户信息准确性 |
+| 停用客户 | 业务经理 | 停用不再合作的客户 | 停止客户在业务中的合作 |
+| 查询客户 | 业务经理 | 查询客户信息 | 获取客户详细信息用于业务决策 |
+
+---
+
+## 9 客户区分机制
+
+> 状态简化后，用以下机制替代原状态区分：
+
+| 维度 | 原设计 | 简化设计 | 说明 |
+|------|----------|----------|------|
+| 潜在客户 vs 活跃客户 | 状态区分 | **客户等级区分** | 用 customerLevel 字段区分客户类型 |
+| 信用问题客户 | 暂停合作状态 | **信用额度调整或备注标记** | 待定项#21 |
+| 客户开发追踪 | 状态区分 | **开发渠道字段** | 用 developChannel 字段追踪客户来源 |
