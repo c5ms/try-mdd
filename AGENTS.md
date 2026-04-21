@@ -5,13 +5,15 @@
 ```
 用户: /m-design 订单业务模型，订单属于一个客户...
   ↓
-command: .agents/commands/m-design.md
+理解整理 → inputs/{domain}/input.md（原始需求）
   ↓
-skill: .agents/skills/mdd-design/SKILL.md
+推演设计 → outputs/domain/{domain}/（设计结果）
+
+用户: /m-evolve 客户取消订单并赔偿...
   ↓
-读取: inputs/{domain}/input.md
+分析影响 → outputs/domain/{domain}/（追加变更）
   ↓
-产出: outputs/domain/{domain}/
+输出用例 → usecases/{domain}/{场景}.md（场景记录）
 ```
 
 ---
@@ -21,33 +23,41 @@ skill: .agents/skills/mdd-design/SKILL.md
 ```
 .agents/
   commands/
-    m-design.md           # /m-design 命令入口
+    m-design.md           # /m-design 设计入口
+    m-evolve.md           # /m-evolve 推演入口
   skills/
     mdd-design/
-      SKILL.md            # 推演流程
+      SKILL.md            # 设计推演
       references/         # 产出模板
+    mdd-evolve/
+      SKILL.md            # 场景推演
 
 inputs/
   {domain}/
-    input.md              # 用户对话记录（人写，AI禁改）
+    input.md              # 原始需求记录（AI整理）
 
 outputs/
   domain/
     {domain}/
-      model.md            # 业务模型（AI写）
-      states.md           # 状态机（AI写）
-      rules.md            # 业务规则（AI写）
-      flows.md            # 用例流程图（AI写）
+      model.md            # 业务模型（AI推演，追加变更）
+      states.md           # 状态机（AI推演，追加变更）
+      rules.md            # 业务规则（AI推演，追加变更）
+      flows.md            # 用例流程图（AI推演，追加变更）
+
+usecases/
+  {domain}/
+    {场景}.md             # 场景用例（推演输出）
 ```
 
 ---
 
 ## 权限
 
-| 目录 | 权限 |
-|------|------|
-| `inputs/` | 用户写，AI 只读 |
-| `outputs/` | AI 写，每次覆盖 |
+| 目录 | 写入时机 | 内容性质 |
+|------|----------|----------|
+| `inputs/` | 设计阶段 | 原始需求记录 |
+| `outputs/` | 设计/推演阶段 | 设计结果（追加变更） |
+| `usecases/` | 推演阶段 | 场景用例记录 |
 
 ---
 
@@ -55,7 +65,9 @@ outputs/
 
 | Command | 用途 |
 |---------|------|
-| `/m-design {domain}` | 启动设计推演 |
+| `/m-design {domain}` | 初始设计推演 |
+| `/m-evolve {场景}` | 场景推演，更新设计 |
+| `/m-reflect [主题]` | 反思推演错误，改进系统 |
 
 ---
 
@@ -63,4 +75,45 @@ outputs/
 
 | Skill | 用途 |
 |-------|------|
-| `mdd-design` | 读取对话 → 分析推演 → 产出文档 |
+| `mdd-design` | 原始需求 → 初始设计 |
+| `mdd-evolve` | 新场景 → 变更设计 + 输出用例 |
+| `mdd-reflect` | 推演错误 → 根因分析 → 改进建议 |
+
+---
+
+## 目录结构（完整）
+
+```
+.agents/
+  commands/
+    m-design.md           # /m-design 设计入口
+    m-evolve.md           # /m-evolve 推演入口
+    m-reflect.md          # /m-reflect 反思入口
+  skills/
+    mdd-design/
+      SKILL.md            # 设计推演
+      references/         # 产出模板
+    mdd-evolve/
+      SKILL.md            # 场景推演
+    mdd-reflect/
+      SKILL.md            # 反思改进
+
+inputs/
+  {domain}/
+    input.md              # 原始需求记录（AI整理）
+
+outputs/
+  domain/
+    {domain}/
+      model.md            # 业务模型（追加变更）
+      states.md           # 状态机（追加变更）
+      rules.md            # 业务规则（追加变更）
+      flows.md            # 用例流程图（追加变更）
+
+usecases/
+  {domain}/
+    {场景}.md             # 场景用例（推演输出）
+
+reflect/
+  YYYY-MM-DD-{主题}.md    # 反思记录（按日期归档）
+```
