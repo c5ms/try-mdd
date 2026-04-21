@@ -1,0 +1,13 @@
+# MDD 设计引擎忽略文件
+
+# 临时文件
+*.tmp
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# 系统文件
+.DS_Store
+Thumbs.db

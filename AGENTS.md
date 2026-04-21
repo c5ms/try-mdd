@@ -36,7 +36,7 @@
   ↓
 角色评审 → 逐角色分析方案，提出意见
   ↓
-输出方案 → solution/{domain}/solution.md（待确认方案）
+输出方案 → solution/{domain}.md（待确认方案）
   ↓
 用户确认 → 是否更新到领域模型目录？
   ↓
@@ -53,6 +53,7 @@
     m-design.md           # /m-design 设计入口
     m-evolve.md           # /m-evolve 讨论/推理助手
     m-init.md             # /m-init 项目初始化
+    m-apply.md            # /m-apply 批量应用方案
     m-role.md             # /m-role 创建新角色
   skills/
     mdd-design/
@@ -61,6 +62,8 @@
       SKILL.md            # 讨论/推理助手（仅对话）
     mdd-init/
       SKILL.md            # 项目初始化
+    mdd-apply/
+      SKILL.md            # 批量应用方案
     mdd-reflect/
       SKILL.md            # 反思改进
 
@@ -69,8 +72,7 @@ config/
   roles.md                # 角色定义（参与设计的角色）
 
 solution/
-  {domain}/
-    solution.md           # 待确认方案（角色评审后）
+  {domain}.md             # 待确认方案（角色评审后）
 
 domain/
   {domain}/
@@ -95,6 +97,7 @@ reflect/
 |---------|------|------|
 | `/m-init` | 项目初始化 | `.agents/commands/m-init.md` |
 | `/m-design {domain}` | 初始设计推演 | `.agents/commands/m-design.md` |
+| `/m-apply` | 批量应用方案到领域模型 | `.agents/commands/m-apply.md` |
 | `/m-evolve <问题或假设>` | 讨论/推理助手（仅对话） | `.agents/commands/m-evolve.md` |
 | `/m-role {角色名}` | 创建新角色 | `.agents/commands/m-role.md` |
 | `/m-reflect [主题]` | 反思推演错误 | `.agents/commands/m-reflect.md` |
@@ -107,6 +110,7 @@ reflect/
 |-------|------|------|
 | `mdd-init` | 确认项目 → 设计角色 → 确定准则 → 初始化目录 | `.agents/skills/mdd-init/SKILL.md` |
 | `mdd-design` | 读取规约 → 角色评审 → 输出方案 → 更新设计 | `.agents/skills/mdd-design/SKILL.md` |
+| `mdd-apply` | 搜索方案 → 用户确认 → 执行更新 → 清理方案 | `.agents/skills/mdd-apply/SKILL.md` |
 | `mdd-evolve` | 用户迷茫 → 给出方向 → 用户选择 → 深入讨论 → 理清思路（仅对话） | `.agents/skills/mdd-evolve/SKILL.md` |
 | `mdd-reflect` | 推演错误 → 根因分析 → 改进建议 | `.agents/skills/mdd-reflect/SKILL.md` |
 
@@ -120,6 +124,7 @@ reflect/
 |------|----------|------|
 | 新项目初始化 | `/m-init` | 确认定位、设计角色、确定准则、初始化目录 |
 | 领域模型设计 | `/m-design {domain}` | 读取规约 → 角色评审 → 输出方案 → 更新设计 |
+| 批量应用方案 | `/m-apply` | 搜索方案 → 用户确认 → 执行更新 → 清理方案 |
 | 迷茫求建议 | `/m-evolve <问题>` | 给出方向 → 用户选择 → 深入讨论 → 理清思路 |
 | 推理假设后果 | `/m-evolve <假设>` | 推理后果 → 给出分析 → 继续讨论 |
 | 创建新角色 | `/m-role {角色名}` | 确认属性 → 检查重复 → 写入 roles.md |

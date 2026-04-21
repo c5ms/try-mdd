@@ -1,5 +1,6 @@
 ---
 description: 讨论/推理助手。用法：/m-evolve <问题或假设描述>
+agent: plan
 ---
 
 用户输入：$ARGUMENTS
