@@ -40,7 +40,7 @@
   ↓
 用户确认 → 是否更新到领域模型目录？
   ↓
-更新设计 → domain/{domain}/model.md（最终设计）
+更新设计 → design/domain/{domain}/model.md（最终设计）
 ```
 
 ---
@@ -74,9 +74,11 @@ config/
 solution/
   {domain}.md             # 待确认方案（角色评审后）
 
-domain/
-  {domain}/
-    model.md              # 领域模型（整合：实体、聚合、状态机、规则、数据流、场景）
+design/
+  domain/
+    {domain}/
+      model.md            # 领域模型（整合：实体、聚合、状态机、规则、数据流、场景）
+  model.md                # 领域模型汇总（统一术语表、领域模型图、待定项汇总、演进记录）
 
 reflect/
   YYYY-MM-DD-{主题}.md    # 反思记录（按日期归档）
@@ -87,7 +89,8 @@ reflect/
 | 目录 | 写入时机 | 内容性质 |
 |------|----------|----------|
 | `solution/` | 评审阶段 | 待确认方案 |
-| `domain/` | 确认阶段 | 最终设计结果 |
+| `design/domain/` | 确认阶段 | 最终设计结果 |
+| `design/model.md` | 确认阶段 | 领域模型汇总 |
 
 ---
 
@@ -110,7 +113,7 @@ reflect/
 |-------|------|------|
 | `mdd-init` | 确认项目 → 设计角色 → 确定准则 → 初始化目录 | `.agents/skills/mdd-init/SKILL.md` |
 | `mdd-design` | 读取规约 → 角色评审 → 输出方案 → 更新设计 | `.agents/skills/mdd-design/SKILL.md` |
-| `mdd-apply` | 搜索方案 → 用户确认 → 执行更新 → 清理方案 | `.agents/skills/mdd-apply/SKILL.md` |
+| `mdd-apply` | 搜索方案 → 用户确认 → 执行更新 → 更新汇总 → 清理方案 | `.opencode/skills/mdd-apply/SKILL.md` |
 | `mdd-evolve` | 用户迷茫 → 给出方向 → 用户选择 → 深入讨论 → 理清思路（仅对话） | `.agents/skills/mdd-evolve/SKILL.md` |
 | `mdd-reflect` | 推演错误 → 根因分析 → 改进建议 | `.agents/skills/mdd-reflect/SKILL.md` |
 
@@ -124,7 +127,7 @@ reflect/
 |------|----------|------|
 | 新项目初始化 | `/m-init` | 确认定位、设计角色、确定准则、初始化目录 |
 | 领域模型设计 | `/m-design {domain}` | 读取规约 → 角色评审 → 输出方案 → 更新设计 |
-| 批量应用方案 | `/m-apply` | 搜索方案 → 用户确认 → 执行更新 → 清理方案 |
+| 批量应用方案 | `/m-apply` | 搜索方案 → 用户确认 → 执行更新 → 更新汇总 → 清理方案 |
 | 迷茫求建议 | `/m-evolve <问题>` | 给出方向 → 用户选择 → 深入讨论 → 理清思路 |
 | 推理假设后果 | `/m-evolve <假设>` | 推理后果 → 给出分析 → 继续讨论 |
 | 创建新角色 | `/m-role {角色名}` | 确认属性 → 检查重复 → 写入 roles.md |
