@@ -1,6 +1,6 @@
 # 设计待定问题
 
-> 最后更新：2026-04-21
+> 最后更新：2026-04-22
 
 ---
 
@@ -31,14 +31,20 @@
 | 21 | 信用问题客户标记机制（替代暂停合作状态） | customer | 财务主管评审 | 待确认 |
 | 22 | 客户状态变更日志机制 | customer | 系统架构师评审 | 待确认 |
 | 23 | 客户重新启用审批流程 | customer | 财务主管评审 | 待确认 |
-| 24 | 物料需求拆分审批流程 | material-requirement | 业务经理评审 | 待确认 |
-| 25 | 物料需求计算触发时机 | material-requirement | 生产跟单员评审 | 待确认 |
-| 26 | 无效物料需求的财务处理 | material-requirement | 财务主管评审 | 待确认 |
-| 27 | 物料需求成本字段设计 | material-requirement | 财务主管评审 | 待确认 |
-| 28 | BOM变更触发物料需求无效的具体条件 | material-requirement | 生产跟单员评审 | 待确认 |
-| 29 | 备料指令编号生成规则 | stock-preparation | 系统架构师评审 | 待确认 |
-| 30 | 多币种采购的汇率处理 | stock-preparation | 财务主管评审 | 待确认 |
-| 31 | 与物料需求统一为采购需求模型的具体实现方案 | stock-preparation | 系统架构师评审 | 待确认 |
+| 24 | 采购需求拆分审批流程 | purchase-requirement | 业务经理评审 | 待确认 |
+| 25 | 采购需求计算触发时机 | purchase-requirement | 生产跟单员评审 | 待确认 |
+| 26 | 无效采购需求的财务处理 | purchase-requirement | 财务主管评审 | 待确认 |
+| 27 | 采购需求成本字段设计 | purchase-requirement | 财务主管评审 | 待确认 |
+| 28 | BOM变更触发采购需求无效的具体条件 | purchase-requirement | 生产跟单员评审 | 待确认 |
+| 29 | 备料指令编号生成规则 | purchase-requirement | 系统架构师评审 | 待确认 |
+| 30 | 多币种采购的汇率处理 | purchase-requirement | 财务主管评审 | 待确认 |
+| 32 | 审批拒绝后是否需要通知采购员 | purchasing | 业务经理评审 | 待确认 |
+| 33 | 汇率核算时机（交易币种与结算币种转换） | purchasing | 财务主管评审 | 待确认 |
+| 34 | 采购单编号生成规则 | purchasing | 系统架构师评审 | 待确认 |
+| 35 | 合同编号生成规则 | purchasing | 系统架构师评审 | 待确认 |
+| 36 | 合同文件生成时机（审批通过时？审批通过后异步？） | purchasing | 系统架构师评审 | 待确认 |
+| 37 | 入库数量阈值判断（什么条件下判定 FULL） | purchasing | 系统架构师评审 | 待确认 |
+| 38 | 结算金额阈值判断（什么条件下判定 FULL） | purchasing | 系统架构师评审 | 待确认 |
 
 ---
 
@@ -46,6 +52,7 @@
 
 | # | 问题 | 所属领域 | 解决方案 | 解决日期 |
 |---|------|----------|----------|----------|
+| 31 | 与物料需求统一为采购需求模型的具体实现方案 | stock-preparation | 统一为 PurchaseRequirement，新增 sourceType 字段区分 ORDER_BASED / PREPARATION_BASED | 2026-04-22 |
 
 ---
 
